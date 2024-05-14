@@ -1,1 +1,1 @@
-# Repo for Data structures & algorithm exam
+# Repo for data structures & algorithm exam
