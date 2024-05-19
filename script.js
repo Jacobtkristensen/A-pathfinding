@@ -3,11 +3,17 @@ import { GridGraph } from "./model/model.js";
 window.addEventListener("load", start);
 function start() {
     console.log("Ready.");
+    const graph= new GridGraph(6,6,"chebysev"); 
+    console.log(graph)
+    const start="0,0";
+    const goal="4,5";
+    const path=graph.aStar(start,goal);
+    console.log("path: ",path);
     // setup eventlisteners
-    setupEventlisteners();
+   // setupEventlisteners();
     // setup the grid
-    setupGrid();
-    loop()
+   // setupGrid();
+  //  loop()
 }
 /**
  * in this we will have the code to run the overall controls and functions to take input and render output
