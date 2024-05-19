@@ -1,7 +1,13 @@
 "use strict"
+import { GridGraph } from "./model/model.js";
 window.addEventListener("load", start);
 function start() {
     console.log("Ready.");
+    // setup eventlisteners
+    setupEventlisteners();
+    // setup the grid
+    setupGrid();
+    loop()
 }
 /**
  * in this we will have the code to run the overall controls and functions to take input and render output
@@ -19,3 +25,31 @@ function start() {
  * notes: taxicab-dist=sqrt(2)*Euclid-dist (x2-x1+y2-y1), eucliddist=sqrt((x2-x1)^2+(y2-y1)^2), Chebyshev dist=max(x2-x1, y2-y1)
  * 
  */
+function loop(){ // just a placeholder for now
+    if(currentcell===goalcell){
+        console.log("Found the goal")
+        return
+    }
+    setTimeout(loop(),500)
+    // get next searchlayer
+    // update visuals
+    // update the tree
+}
+function setupEventlisteners(){
+    document.getElementById("taxicab").addEventListener("click", function(){
+        distanceMetric="taxicab";
+    });
+    document.getElementById("chebysev").addEventListener("click", function(){
+        distanceMetric="chebysev";
+    });
+    document.getElementById("alterGrid").addEventListener("click", function(){
+        alterGrid();
+    });
+    document.querySelector("#start-cell").addEventListener("change",function(){
+        startcell=document.querySelector("#start-cell").value;
+    });
+    document.querySelector("#goal-cell").addEventListener("change",function(){
+        goalcell=document.querySelector("#goal-cell").value;
+    });
+
+}
