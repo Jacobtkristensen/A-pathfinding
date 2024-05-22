@@ -133,9 +133,15 @@ export class GridGraph {
     }
     addNode(node) {
         if(!this.nodes.has(node)){
-            this.nodes.set(node, []);
+            this.nodes.set(node, {neighbors:[], accessible: true});
         }
         
+    }
+    setObstacle(x,y){
+        const node = `${x},${y}`;
+        if(this.nodes.has(node)){
+            this.nodes.get(node).accessible=false;
+        }
     }
 
     addEdge(node1, node2) {
@@ -186,7 +192,7 @@ export class GridGraph {
     }
 
     getNeighbors(node) {
-        return this.nodes.get(node);
+        return this.nodes.get(node).neighbors.filter(neighbor => this.nodes.get(neighbor).accessible);
     }
 
     heuristic(node, goal) {
@@ -227,14 +233,14 @@ export class GridGraph {
         fScore.set(start, this.heuristic(start, goal));
 
         while (!openSet.isEmpty()) {
-            let current = openSet.dequeue();
+            let current = openSet.dequeue(); 
 
             if (current === goal) {
                 return this.reconstructPath(cameFrom, current);
             }
             
 
-            for (let neighbor of this.getNeighbors(current)) {
+            for (let neighbor of this.getNeighbors(current)) { // TODO: visualize neighbors
                 let tentative_gScore = gScore.get(current) + 1; // Equal weights
 
                 if (tentative_gScore < gScore.get(neighbor)) {
