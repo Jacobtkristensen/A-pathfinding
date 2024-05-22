@@ -2,32 +2,33 @@ export class GridSearchView {
     constructor(model) {
         this.model = model;
         this.boardElement = document.querySelector('#grid');
+        this.boardElement = document.querySelector('#grid');
         this.createBoard();
     }
 
     createBoard() {
         // Clear any existing board
-        const WIDTH=this.model.getWidth();
-        const HEIGHT=this.model.getHeight();
+        const WIDTH = this.model.getWidth();
+        const HEIGHT = this.model.getHeight();
+    
+        // Clear any existing board
         this.boardElement.innerHTML = '';
-        
-
+    
+        // Set the CSS grid properties
+        this.boardElement.style.display = 'grid';
+        this.boardElement.style.gridTemplateColumns = `repeat(${WIDTH}, 0.5fr)`;
+        this.boardElement.style.gridTemplateRows = `repeat(${HEIGHT}, 0.5fr)`;
+    
         // Create the grid dynamically
         for (let row = 0; row < HEIGHT; row++) {
-            const rowElement = document.createElement('div');
-            rowElement.classList.add('row');
             for (let col = 0; col < WIDTH; col++) {
                 const cellElement = document.createElement('div');
                 cellElement.classList.add('cell');
-                // Set data attributes for row and column
                 cellElement.dataset.row = row;
                 cellElement.dataset.col = col;
-                rowElement.appendChild(cellElement);
+                this.boardElement.appendChild(cellElement);
             }
-            this.boardElement.appendChild(rowElement);
         }
-        this.boardElement.style.gridTemplateColumns=`repeat(${WIDTH}, 4px) `;
-         this.boardElement.style.gridTemplateRows=`repeat(${HEIGHT}, 4px) `;
     }
     // ### skal omskrives så den opdaterer celler/nodes tilføjes queue eller er del af path ###
 

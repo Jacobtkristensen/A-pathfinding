@@ -39,9 +39,6 @@
       </div>
       <div class="row mb-3 flex-grow-1">
         <div class="col-2 d-flex flex-column buttons">
-          <button type="button" class="btn btn-warning fs-4" data-bs-toggle="modal" data-bs-target="#alterGrid">
-            Alter grid
-          </button>
           <div class="form-check mb-2 mt-5 ml-5 fs-3">
             <input class="form-check-input" type="radio" name="type" id="taxicab" value="taxicab" checked />
             <label class="form-check-label" for="taxicab"> Taxicab </label>
@@ -50,8 +47,11 @@
             <input class="form-check-input" type="radio" name="type" id="chebyshev" value="chebyshev" />
             <label class="form-check-label" for="chebyshev"> Chebyshev </label>
           </div>
+          <div id="instructions mb-2 mt-3 ml-5 fs-4">
+            <p>Her skal der stå instrukser til hvordan man aktiverer visualiseringen af A* algoritmen</p>
+          </div>
         </div>
-        <div class="col-8 border border-black d-flex justify-content-center align-items-center">
+        <div id="grid-container"class="col-8">
           <div id="grid"></div>
         </div>
         <div id="" class="col-2 textarea-scrollable d-flex align-items-center">
