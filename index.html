@@ -13,94 +13,72 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="style.css" />
-        <title>Pathfinding Visualization</title>
-      </head>
-      <!DOCTYPE html>
-      <html lang="en">
-        <head>
-          <meta charset="UTF-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
-          <link rel="stylesheet" href="style.css" />
-          <title>Pathfinding Visualization</title>
-        </head>
-        <body>
-          <div class="container-fluid d-flex flex-column justify-content-center" style="height: 100vh">
-            <div class="row mb-3">
-              <div class="col-3 d-flex justify-content-start align-items-center border border-danger headline">
-                <h1 class="m-0">A* Algorithm Visualization</h1>
-              </div>
-              <div class="col-6 d-flex justify-content-center align-items-center border border-danger headline">
-                <h3 class="m-0">Start & mål placering</h3>
-              </div>
-              <div class="col-3 d-flex justify-content-center align-items-center border border-danger headline"></div>
-            </div>
-            <div class="row mb-3 justify-content-center start-goal-buttons">
-              <div class="col-2 d-flex justify-content-center align-items-center border border-danger headline">
-                <div class="d-grid gap-2 col-5 mx-auto">
-                  <button class="btn btn-success btn-lg">Start</button>
-                </div>
-              </div>
-              <div class="col-8 d-flex justify-content-center align-items-center border border-danger buttons2">
-                <h4 class="m-0">Start</h4>
-                <input id="start-cell" type="text" class="form-control mx-2" style="width: 100px" placeholder="Start(x,x)" />
-                <h4 class="m-0">Mål</h4>
-                <input id="goal-cell" type="text" class="form-control mx-2" style="width: 100px" placeholder="Mål(x,x)" />
-              </div>
-              <div class="col-2 d-flex justify-content-center align-items-center border border-danger headline"></div>
-            </div>
-            <div class="row mb-3 flex-grow-1">
-              <div class="col-2 d-flex flex-column border border-danger buttons">
-                <button type="button" class="btn btn-warning fs-4" data-bs-toggle="modal" data-bs-target="#alterGrid">
-                  Alter grid
-                </button>
-                <div class="form-check mb-2 mt-5 ml-5 fs-3">
-                  <input class="form-check-input" type="radio" name="type" id="taxicab" value="taxicab" checked />
-                  <label class="form-check-label" for="taxicab"> Taxicab </label>
-                </div>
-                <div class="form-check mb-2 mt-3 ml-5 fs-3">
-                  <input class="form-check-input" type="radio" name="type" id="chebyshev" value="chebyshev" />
-                  <label class="form-check-label" for="chebyshev"> Chebyshev </label>
-                </div>
-              </div>
-              <div id="grid" class="col-8 border border-danger grid d-flex justify-content-center align-items-center">
-                <!-- Grid visualization goes here -->
-              </div>
-              <div id="textarea" class="col-2 border border-danger textarea-scrollable d-flex align-items-center">
-                <textarea class="form-control w-100" rows="10"></textarea>
-              </div>
-            </div>
+    <div class="container-fluid d-flex flex-column justify-content-center" style="height: 100vh">
+      <div class="row mb-3">
+        <div class="col-3 d-flex justify-content-start align-items-center border border-danger headline">
+          <h1 class="m-0">A* Algorithm Visualization</h1>
+        </div>
+        <div class="col-6 d-flex justify-content-center align-items-center border border-danger headline">
+          <h3 class="m-0">Start & mål placering</h3>
+        </div>
+        <div class="col-3 d-flex justify-content-center align-items-center border border-danger headline"></div>
+      </div>
+      <div class="row mb-3 justify-content-center start-goal-buttons">
+        <div class="col-2 d-flex justify-content-center align-items-center border border-danger headline">
+          <div class="d-grid gap-2 col-5 mx-auto">
+            <button class="btn btn-success btn-lg">Start</button>
           </div>
-          <div class="modal fade" id="alterGrid" tabindex="-1" aria-labelledby="alterGridLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="alterGridLabel">Modal title</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">...</div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-              </div>
-            </div>
+        </div>
+        <div class="col-8 d-flex justify-content-center align-items-center border border-danger buttons2">
+          <h4 class="m-0">Start</h4>
+          <input id="start-cell" type="text" class="form-control mx-2" style="width: 100px" placeholder="Start(x,x)" />
+          <h4 class="m-0">Mål</h4>
+          <input id="goal-cell" type="text" class="form-control mx-2" style="width: 100px" placeholder="Mål(x,x)" />
+        </div>
+        <div class="col-2 d-flex justify-content-center align-items-center border border-danger headline"></div>
+      </div>
+      <div class="row mb-3 flex-grow-1">
+        <div class="col-2 d-flex flex-column border border-danger buttons">
+          <button type="button" class="btn btn-warning fs-4" data-bs-toggle="modal" data-bs-target="#alterGrid">
+            Alter grid
+          </button>
+          <div class="form-check mb-2 mt-5 ml-5 fs-3">
+            <input class="form-check-input" type="radio" name="type" id="taxicab" value="taxicab" checked />
+            <label class="form-check-label" for="taxicab"> Taxicab </label>
           </div>
-          <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"
-          ></script>
-          <script type="module" src="script.js"></script>
-        </body>
-      </html>
-    </html>
+          <div class="form-check mb-2 mt-3 ml-5 fs-3">
+            <input class="form-check-input" type="radio" name="type" id="chebyshev" value="chebyshev" />
+            <label class="form-check-label" for="chebyshev"> Chebyshev </label>
+          </div>
+        </div>
+        <div id="grid" class="col-8 border border-danger grid d-flex justify-content-center align-items-center">
+          <!-- Grid visualization goes here -->
+        </div>
+        <div id="textarea" class="col-2 border border-danger textarea-scrollable d-flex align-items-center">
+          <textarea class="form-control w-100" rows="10"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="alterGrid" tabindex="-1" aria-labelledby="alterGridLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="alterGridLabel">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">...</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="script.js"></script>
   </body>
 </html>
