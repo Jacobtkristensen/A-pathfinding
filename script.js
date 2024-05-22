@@ -1,9 +1,11 @@
 "use strict"
 import { GridGraph } from "./model/model.js";
+import { GridSearchView } from "./view/view.js";
 window.addEventListener("load", start);
 function start() {
     console.log("Ready.");
     const graph= new GridGraph(6,6,"chebysev"); 
+    const view = new GridSearchView(graph);
     console.log(graph)
     const start="0,0";
     const goal="4,5";
