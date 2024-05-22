@@ -14,8 +14,9 @@ body {
 }
 
 #grid {
-  display: grid;
-  grid-gap: 10px;
+  
+  gap: ;
+ 
   width: 400px;
   height: 400px;
 }
