@@ -42,3 +42,9 @@ body {
   background-color: black;
 }
 
+.start{
+  background-color: olivedrab;
+}
+.goal{
+  background-color: lightcoral;
+}
