@@ -1,5 +1,10 @@
 "use strict"
 import { GridGraph } from "./model/model.js";
+
+let distanceMetric="taxicab";
+let startcell;
+let goalcell;
+
 window.addEventListener("load", start);
 function start() {
     console.log("Ready.");
@@ -9,6 +14,7 @@ function start() {
     const goal="4,5";
     const path=graph.aStar(start,goal);
     console.log("path: ",path);
+    setupEventlisteners();
     // setup eventlisteners
    // setupEventlisteners();
     // setup the grid
@@ -42,20 +48,31 @@ function loop(){ // just a placeholder for now
     // update the tree
 }
 function setupEventlisteners(){
-    document.getElementById("taxicab").addEventListener("click", function(){
-        distanceMetric="taxicab";
+    
+    document.querySelector("#taxicab").addEventListener("change", function(){
+        if (this.checked) {
+            distanceMetric = "taxicab";
+            console.log("Distance Metric changed to:", distanceMetric);
+        }
     });
-    document.getElementById("chebysev").addEventListener("click", function(){
-        distanceMetric="chebysev";
+    
+    document.querySelector("#chebyshev").addEventListener("change", function(){
+        if (this.checked) {
+            distanceMetric = "chebyshev";
+            console.log("Distance Metric changed to:", distanceMetric);
+        }
     });
-    document.getElementById("alterGrid").addEventListener("click", function(){
-        alterGrid();
-    });
+    // document.getElementById("alterGrid").addEventListener("click", function(){
+    //     alterGrid();
+    // });
     document.querySelector("#start-cell").addEventListener("change",function(){
         startcell=document.querySelector("#start-cell").value;
+        console.log("startcell changed to:",startcell);
+
     });
     document.querySelector("#goal-cell").addEventListener("change",function(){
         goalcell=document.querySelector("#goal-cell").value;
+        console.log("goalcell changed to:",goalcell);
     });
 
 }
