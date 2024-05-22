@@ -9,7 +9,7 @@ let goalcell;
 window.addEventListener("load", start);
 function start() {
     console.log("Ready.");
-    const graph= new GridGraph(6,6,"chebysev"); 
+    const graph= new GridGraph(40,25,"chebysev"); 
     const view = new GridSearchView(graph);
     console.log(graph)
     const start="0,0";

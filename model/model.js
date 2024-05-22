@@ -151,8 +151,9 @@ export class GridGraph {
 
     addEdge(node1, node2) {
         if(this.nodes.has(node1) && this.nodes.has(node2)){
-        this.nodes.get(node1).push(node2);
-        this.nodes.get(node2).push(node1); // For undirected graph
+            this.nodes.get(node1).neighbors.push(node2);
+            this.nodes.get(node2).neighbors.push(node1); // For undirected graph
+
         }else{
             console.log(`Attempted to add edge between non-existent nodes: ${node1} - ${node2}`)
         }
