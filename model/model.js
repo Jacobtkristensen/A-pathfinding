@@ -1,84 +1,3 @@
-// class Graph {
-//     constructor() {
-//         this.nodes = new Map();
-//     }
-
-//     addNode(node) {
-//         this.nodes.set(node, []);
-//     }
-//  // in our grid we can assume equal weight for all
-//     addEdge(node1, node2, weight) {
-//         this.nodes.get(node1).push({ node: node2, weight: weight });
-//         this.nodes.get(node2).push({ node: node1, weight: weight }); // For undirected graph
-//     }
-
-//     getNeighbors(node) {
-//         return this.nodes.get(node);
-//     }
-
-//     heuristic(node, goal) {
-//         // Implement your heuristic function here.
-//         // For example, if nodes have x and y coordinates, you could use the Euclidean distance:
-//         // return Math.sqrt((node.x - goal.x) ** 2 + (node.y - goal.y) ** 2);
-//         return 0; // Placeholder for heuristic value
-//     }
-
-//     aStar(start, goal) {
-//         let openSet = new Set([start]);
-//         let cameFrom = new Map();
-
-//         let gScore = new Map();
-//         let fScore = new Map();
-
-//         this.nodes.forEach((_, node) => {
-//             gScore.set(node, Infinity);
-//             fScore.set(node, Infinity);
-//         });
-
-//         gScore.set(start, 0);
-//         fScore.set(start, this.heuristic(start, goal));
-
-//         while (openSet.size > 0) {
-//             let current = [...openSet].reduce((acc, node) => {
-//                 if (fScore.get(node) < fScore.get(acc)) {
-//                     return node;
-//                 }
-//                 return acc;
-//             });
-
-//             if (current === goal) {
-//                 return this.reconstructPath(cameFrom, current);
-//             }
-
-//             openSet.delete(current);
-
-//             for (let { node: neighbor, weight } of this.getNeighbors(current)) {
-//                 let tentative_gScore = gScore.get(current) + weight;
-
-//                 if (tentative_gScore < gScore.get(neighbor)) {
-//                     cameFrom.set(neighbor, current);
-//                     gScore.set(neighbor, tentative_gScore);
-//                     fScore.set(neighbor, tentative_gScore + this.heuristic(neighbor, goal));
-
-//                     if (!openSet.has(neighbor)) {
-//                         openSet.add(neighbor);
-//                     }
-//                 }
-//             }
-//         }
-
-//         return []; // Return an empty array if there is no path
-//     }
-
-//     reconstructPath(cameFrom, current) {
-//         let totalPath = [current];
-//         while (cameFrom.has(current)) {
-//             current = cameFrom.get(current);
-//             totalPath.unshift(current);
-//         }
-//         return totalPath;
-//     }
-// }
  class PriorityQueue {
     constructor() {
         this.elements = [];
@@ -104,11 +23,12 @@
 
 
 export class GridGraph {
-    constructor(width, height,metric) {
+    constructor(width, height,metric, view) {
         this.width = width;
         this.height = height;
         this.nodes = new Map();
         this.metric=metric;
+        this.view = view;
 
         this.createGrid();
         this.createEdges(metric);
@@ -218,7 +138,7 @@ export class GridGraph {
         }
     }
 
-    aStar(start, goal) {
+     aStar(start, goal) {
         // if(!this.metric){
         //     this.metric='taxicab';
         // }
@@ -245,6 +165,8 @@ export class GridGraph {
                 return this.reconstructPath(cameFrom, current);
             }
             
+            const neighbors = this.getNeighbors(current);
+            this.view.highlightNeighbors(current, neighbors);
 
             for (let neighbor of this.getNeighbors(current)) { // TODO: visualize neighbors
                 let tentative_gScore = gScore.get(current) + 1; // Equal weights
@@ -273,6 +195,90 @@ export class GridGraph {
         return totalPath;
     }
 }
+
+// class Graph {
+//     constructor() {
+//         this.nodes = new Map();
+//     }
+
+//     addNode(node) {
+//         this.nodes.set(node, []);
+//     }
+//  // in our grid we can assume equal weight for all
+//     addEdge(node1, node2, weight) {
+//         this.nodes.get(node1).push({ node: node2, weight: weight });
+//         this.nodes.get(node2).push({ node: node1, weight: weight }); // For undirected graph
+//     }
+
+//     getNeighbors(node) {
+//         return this.nodes.get(node);
+//     }
+
+//     heuristic(node, goal) {
+//         // Implement your heuristic function here.
+//         // For example, if nodes have x and y coordinates, you could use the Euclidean distance:
+//         // return Math.sqrt((node.x - goal.x) ** 2 + (node.y - goal.y) ** 2);
+//         return 0; // Placeholder for heuristic value
+//     }
+
+//     aStar(start, goal) {
+//         let openSet = new Set([start]);
+//         let cameFrom = new Map();
+
+//         let gScore = new Map();
+//         let fScore = new Map();
+
+//         this.nodes.forEach((_, node) => {
+//             gScore.set(node, Infinity);
+//             fScore.set(node, Infinity);
+//         });
+
+//         gScore.set(start, 0);
+//         fScore.set(start, this.heuristic(start, goal));
+
+//         while (openSet.size > 0) {
+//             let current = [...openSet].reduce((acc, node) => {
+//                 if (fScore.get(node) < fScore.get(acc)) {
+//                     return node;
+//                 }
+//                 return acc;
+//             });
+
+//             if (current === goal) {
+//                 return this.reconstructPath(cameFrom, current);
+//             }
+
+//             openSet.delete(current);
+
+//             for (let { node: neighbor, weight } of this.getNeighbors(current)) {
+//                 let tentative_gScore = gScore.get(current) + weight;
+
+//                 if (tentative_gScore < gScore.get(neighbor)) {
+//                     cameFrom.set(neighbor, current);
+//                     gScore.set(neighbor, tentative_gScore);
+//                     fScore.set(neighbor, tentative_gScore + this.heuristic(neighbor, goal));
+
+//                     if (!openSet.has(neighbor)) {
+//                         openSet.add(neighbor);
+//                     }
+//                 }
+//             }
+//         }
+
+//         return []; // Return an empty array if there is no path
+//     }
+
+//     reconstructPath(cameFrom, current) {
+//         let totalPath = [current];
+//         while (cameFrom.has(current)) {
+//             current = cameFrom.get(current);
+//             totalPath.unshift(current);
+//         }
+//         return totalPath;
+//     }
+// }
+
+
 
 // Example usage:
 

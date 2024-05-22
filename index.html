@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="container-fluid d-flex flex-column justify-content-center" style="height: 100vh">
+    <div class="container-fluid d-flex flex-column justify-content-center">
       <div class="row mb-3">
         <div class="col-3 d-flex justify-content-start align-items-center headline">
           <h1 class="m-0">A* Algorithm Visualization</h1>
@@ -26,7 +26,7 @@
       <div class="row mb-3 justify-content-center start-goal-buttons">
         <div class="col-2 d-flex justify-content-center align-items-center headline">
           <div class="d-grid gap-2 col-5 mx-auto">
-            <button class="btn btn-success btn-lg">Start</button>
+            <button id="start-btn" class="btn btn-success btn-lg">Start</button>
           </div>
         </div>
         <div class="col-8 d-flex justify-content-center align-items-center buttons2">
@@ -48,7 +48,8 @@
             <label class="form-check-label" for="chebyshev"> Chebyshev </label>
           </div>
           <div id="instructions mb-2 mt-3 ml-5 fs-4">
-            <p>Her skal der stå instrukser til hvordan man aktiverer visualiseringen af A* algoritmen</p>
+            <h4 class="mt-5">Instrukser</h4>
+            <p class="">Her skal der stå instrukser til hvordan man aktiverer visualiseringen af A* algoritmen</p>
           </div>
         </div>
         <div id="grid-container"class="col-8">

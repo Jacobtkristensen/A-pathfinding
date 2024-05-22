@@ -5,24 +5,52 @@ import { GridSearchView } from "./view/view.js";
 let distanceMetric="taxicab";
 let startcell;
 let goalcell;
+let graph= new GridGraph(40,25,"taxicab"); 
+const view = new GridSearchView(graph);
+graph.view = view;
 
-window.addEventListener("load", start);
-function start() {
+
+window.addEventListener("load", load);
+function load() {
     console.log("Ready.");
-    const graph= new GridGraph(40,25,"chebysev"); 
+    graph= new GridGraph(40,25,"taxicab"); 
     const view = new GridSearchView(graph);
-    console.log(graph)
-    const start="0,0";
-    const goal="4,5";
-    const path=graph.aStar(start,goal);
-    console.log("path: ",path);
+    graph.view = view;
+    
+    view.makeBoardClickable();
     setupEventlisteners();
+    
+    console.log("Graph initialized.");
+
+    //console.log(graph)
+    //const path=graph.aStar(start,goal);
+    //console.log("path: ",path);
     // setup eventlisteners
    // setupEventlisteners();
     // setup the grid
    // setupGrid();
   //  loop()
 }
+
+function start(){
+    console.log(graph)
+    const start = startcell;
+    const goal = goalcell;
+
+    if (!start || !goal) {
+        console.error("Start or goal cell is not set.");
+        return;
+    }
+
+    const path = graph.aStar(start, goal);
+    console.log("Path: ", path);
+
+
+    // // start the search
+    // graph.aStar(start,goal);
+
+}
+
 /**
  * in this we will have the code to run the overall controls and functions to take input and render output
  * the model will be a sort of tree to keep track of the paths and a function to calculate the the total cost 
@@ -50,7 +78,9 @@ function loop(){ // just a placeholder for now
     // update the tree
 }
 function setupEventlisteners(){
-    
+
+    document.getElementById("start-btn").addEventListener("click", start);
+
     document.querySelector("#taxicab").addEventListener("change", function(){
         if (this.checked) {
             distanceMetric = "taxicab";
@@ -67,15 +97,16 @@ function setupEventlisteners(){
     // document.getElementById("alterGrid").addEventListener("click", function(){
     //     alterGrid();
     // });
-    document.querySelector("#start-cell").addEventListener("change",function(){
-        startcell=document.querySelector("#start-cell").value;
-        console.log("startcell changed to:",startcell);
+    document.querySelector("#start-cell").addEventListener("change", function() {
+        startcell = document.querySelector("#start-cell").value;
+        console.log("Start cell changed to:", startcell);
+    });
 
+    document.querySelector("#goal-cell").addEventListener("change", function() {
+        goalcell = document.querySelector("#goal-cell").value;
+        console.log("Goal cell changed to:", goalcell);
     });
-    document.querySelector("#goal-cell").addEventListener("change",function(){
-        goalcell=document.querySelector("#goal-cell").value;
-        console.log("goalcell changed to:",goalcell);
-    });
+    
 
 }
 function setObstacles(cell){

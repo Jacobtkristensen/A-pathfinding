@@ -2,7 +2,6 @@ export class GridSearchView {
     constructor(model) {
         this.model = model;
         this.boardElement = document.querySelector('#grid');
-        this.boardElement = document.querySelector('#grid');
         this.createBoard();
     }
 
@@ -32,21 +31,21 @@ export class GridSearchView {
     }
     // ### skal omskrives så den opdaterer celler/nodes tilføjes queue eller er del af path ###
 
-    updateView() {
-        const cells = this.boardElement.querySelectorAll('.cell');
-        cells.forEach(cell => {
-            const row = parseInt(cell.dataset.row);
-            const col = parseInt(cell.dataset.col);
-            const cellState = this.model.getCell(row, col);
-            if (cellState) {
-                cell.classList.add('alive');
-            } else {
-                cell.classList.remove('alive');
-            }
-        });
+    // updateView() {
+    //     const cells = this.boardElement.querySelectorAll('.cell');
+    //     cells.forEach(cell => {
+    //         const row = parseInt(cell.dataset.row);
+    //         const col = parseInt(cell.dataset.col);
+    //         const cellState = this.model.getCell(row, col);
+    //         if (cellState) {
+    //             cell.classList.add('alive');
+    //         } else {
+    //             cell.classList.remove('alive');
+    //         }
+    //     });
         
-        generations.value=`Generations: ${this.model.generations}`;
-    }
+    //     generations.value=`Generations: ${this.model.generations}`;
+    // }
     makeBoardClickable(){
         this.boardElement.addEventListener("click", this.boardClicked.bind(this));
     }
@@ -58,7 +57,25 @@ export class GridSearchView {
             const col = parseInt(cell.dataset.col);
             this.model.setObstacle(row, col);
             cell.classList.add("inaccessible");
-            this.updateView();
+            //this.updateView();
         }
-    }   
+    }
+    
+    highlightNeighbors(current, neighbors) {
+        this.clearHighlights();
+        neighbors.forEach(neighbor => {
+            const [row, col] = neighbor.split(',').map(Number);
+            const cell = this.boardElement.querySelector(`.cell[data-row='${row}'][data-col='${col}']`);
+            if (cell) {
+                cell.classList.add('neighbor');
+            }
+        });
+    }
+
+    clearHighlights() {
+        const cells = this.boardElement.querySelectorAll('.cell.neighbor');
+        cells.forEach(cell => {
+            cell.classList.remove('neighbor');
+        });
+    }
 }
