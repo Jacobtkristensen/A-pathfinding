@@ -1,7 +1,7 @@
 export class GridSearchView {
     constructor(model) {
         this.model = model;
-        this.boardElement = document.querySelector('#board');
+        this.boardElement = document.querySelector('#grid');
         this.createBoard();
     }
 
