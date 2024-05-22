@@ -19,7 +19,9 @@ body {
   width: 400px;
   height: 400px;
 }
-
+.textarea {
+  height: 100%;
+}
 .textarea-scrollable {
   display: flex;
   align-items: center;

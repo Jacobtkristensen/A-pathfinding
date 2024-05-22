@@ -15,30 +15,30 @@
   <body>
     <div class="container-fluid d-flex flex-column justify-content-center" style="height: 100vh">
       <div class="row mb-3">
-        <div class="col-3 d-flex justify-content-start align-items-center border border-danger headline">
+        <div class="col-3 d-flex justify-content-start align-items-center headline">
           <h1 class="m-0">A* Algorithm Visualization</h1>
         </div>
-        <div class="col-6 d-flex justify-content-center align-items-center border border-danger headline">
+        <div class="col-6 d-flex justify-content-center align-items-center headline">
           <h3 class="m-0">Start & mål placering</h3>
         </div>
-        <div class="col-3 d-flex justify-content-center align-items-center border border-danger headline"></div>
+        <div class="col-3 d-flex justify-content-center align-items-center headline"></div>
       </div>
       <div class="row mb-3 justify-content-center start-goal-buttons">
-        <div class="col-2 d-flex justify-content-center align-items-center border border-danger headline">
+        <div class="col-2 d-flex justify-content-center align-items-center headline">
           <div class="d-grid gap-2 col-5 mx-auto">
             <button class="btn btn-success btn-lg">Start</button>
           </div>
         </div>
-        <div class="col-8 d-flex justify-content-center align-items-center border border-danger buttons2">
+        <div class="col-8 d-flex justify-content-center align-items-center buttons2">
           <h4 class="m-0">Start</h4>
           <input id="start-cell" type="text" class="form-control mx-2" style="width: 100px" placeholder="Start(x,x)" />
           <h4 class="m-0">Mål</h4>
           <input id="goal-cell" type="text" class="form-control mx-2" style="width: 100px" placeholder="Mål(x,x)" />
         </div>
-        <div class="col-2 d-flex justify-content-center align-items-center border border-danger headline"></div>
+        <div class="col-2 d-flex justify-content-center align-items-center headline"></div>
       </div>
       <div class="row mb-3 flex-grow-1">
-        <div class="col-2 d-flex flex-column border border-danger buttons">
+        <div class="col-2 d-flex flex-column buttons">
           <button type="button" class="btn btn-warning fs-4" data-bs-toggle="modal" data-bs-target="#alterGrid">
             Alter grid
           </button>
@@ -51,13 +51,11 @@
             <label class="form-check-label" for="chebyshev"> Chebyshev </label>
           </div>
         </div>
-        <div class="col-8 border border-danger d-flex justify-content-center align-items-center">
-          <div id="grid">
-          
-          </div>
+        <div class="col-8 border border-black d-flex justify-content-center align-items-center">
+          <div id="grid"></div>
         </div>
-        <div id="textarea" class="col-2 border border-danger textarea-scrollable d-flex align-items-center">
-          <textarea class="form-control w-100" rows="10"></textarea>
+        <div id="" class="col-2 textarea-scrollable d-flex align-items-center">
+          <textarea id="textarea" class="form-control w-100" rows="35"></textarea>
         </div>
       </div>
     </div>
