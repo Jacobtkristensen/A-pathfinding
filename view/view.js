@@ -2,6 +2,7 @@ export class GridSearchView {
     constructor(model) {
         this.model = model;
         this.boardElement = document.querySelector('#grid');
+        this.boardElement = document.querySelector('#grid');
         this.createBoard();
     }
 
@@ -31,21 +32,21 @@ export class GridSearchView {
     }
     // ### skal omskrives så den opdaterer celler/nodes tilføjes queue eller er del af path ###
 
-    // updateView() {
-    //     const cells = this.boardElement.querySelectorAll('.cell');
-    //     cells.forEach(cell => {
-    //         const row = parseInt(cell.dataset.row);
-    //         const col = parseInt(cell.dataset.col);
-    //         const cellState = this.model.getCell(row, col);
-    //         if (cellState) {
-    //             cell.classList.add('alive');
-    //         } else {
-    //             cell.classList.remove('alive');
-    //         }
-    //     });
-    //     const generations=document.querySelector("#generations");
-    //     generations.value=`Generations: ${this.model.generations}`;
-    // }
+    updateView() {
+        const cells = this.boardElement.querySelectorAll('.cell');
+        cells.forEach(cell => {
+            const row = parseInt(cell.dataset.row);
+            const col = parseInt(cell.dataset.col);
+            const cellState = this.model.getCell(row, col);
+            if (cellState) {
+                cell.classList.add('alive');
+            } else {
+                cell.classList.remove('alive');
+            }
+        });
+        
+        generations.value=`Generations: ${this.model.generations}`;
+    }
     makeBoardClickable(){
         this.boardElement.addEventListener("click", this.boardClicked.bind(this));
     }
