@@ -76,3 +76,7 @@ function setupEventlisteners(){
     });
 
 }
+function setObstacles(cell){
+    // set the cell to be an obstacle by calling the setObstacle(x,y) method of the model. I guess the cell will need to have x & y values added or derived from grid....
+    // add class obstacle to style the obstacle cell different than rest fx black or outset in a darkgray or something...
+}
