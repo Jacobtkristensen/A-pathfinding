@@ -2,6 +2,7 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  margin-top: 50px;
 }
 
 .headline {
@@ -12,10 +13,11 @@ body {
   padding-top: 20px;
 }
 
-.grid {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+#grid {
+  display: grid;
+  grid-gap: 10px;
+  width: 400px;
+  height: 400px;
 }
 
 .textarea-scrollable {
@@ -27,8 +29,6 @@ body {
   height: 50px; /* Adjust as needed */
 }
 
-
-
 .cell{
   width: 10px;
   height: 10px;
@@ -38,14 +38,7 @@ body {
   
   
 }
-#board{
-  display: grid;
- 
-  width: 400px;
-  height: 400px;
- 
-  grid-gap: 10px;
-}
+
 .inaccessible{
   background-color: black;
 }
