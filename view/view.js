@@ -62,12 +62,14 @@ export class GridSearchView {
     }
     
     highlightNeighbors(current, neighbors) {
-        this.clearHighlights();
+       // this.clearHighlights();
         neighbors.forEach(neighbor => {
             const [row, col] = neighbor.split(',').map(Number);
             const cell = this.boardElement.querySelector(`.cell[data-row='${row}'][data-col='${col}']`);
-            if (cell) {
+            if (cell && (!cell.classList.contains('start')||!cell.classList.contains('goal'))) {
+                
                 cell.classList.add('neighbor');
+               
             }
         });
     }
