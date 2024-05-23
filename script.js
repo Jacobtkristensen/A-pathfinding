@@ -98,12 +98,22 @@ function setupEventlisteners(){
     //     alterGrid();
     // });
     document.querySelector("#start-cell").addEventListener("change", function() {
+       const cells=document.querySelectorAll(".cell");
+        cells.forEach(cell=>cell.classList.remove("start"));
         startcell = document.querySelector("#start-cell").value;
+        const [row, col] =startcell.split(',').map(Number);
+        const visualstartcell=document.querySelector(`.cell[data-row='${row}'][data-col='${col}']`);
+        visualstartcell.classList.add("start");
         console.log("Start cell changed to:", startcell);
     });
 
     document.querySelector("#goal-cell").addEventListener("change", function() {
+       const cells=document.querySelectorAll(".cell");
+        cells.forEach(cell=>cell.classList.remove("goal"));
         goalcell = document.querySelector("#goal-cell").value;
+        const [row, col] =goalcell.split(',').map(Number);
+        const visualgoalcell=document.querySelector(`.cell[data-row='${row}'][data-col='${col}']`);
+        visualgoalcell.classList.add("goal");
         console.log("Goal cell changed to:", goalcell);
     });
     
