@@ -2,10 +2,10 @@
 import { GridGraph } from "./model/model.js";
 import { GridSearchView } from "./view/view.js";
 
-let distanceMetric="taxicab";
+let distanceMetric;
 let startcell;
 let goalcell;
-let graph= new GridGraph(40,25,"taxicab"); 
+let graph= new GridGraph(40,25,distanceMetric); 
 const view = new GridSearchView(graph);
 graph.view = view;
 
@@ -13,7 +13,7 @@ graph.view = view;
 window.addEventListener("load", load);
 function load() {
     console.log("Ready.");
-    graph= new GridGraph(40,25,"taxicab"); 
+    graph= new GridGraph(40,25,distanceMetric); 
     const view = new GridSearchView(graph);
     graph.view = view;
     
@@ -84,6 +84,7 @@ function setupEventlisteners(){
     document.querySelector("#taxicab").addEventListener("change", function(){
         if (this.checked) {
             distanceMetric = "taxicab";
+            graph.metric=distanceMetric
             console.log("Distance Metric changed to:", distanceMetric);
         }
     });
@@ -91,6 +92,7 @@ function setupEventlisteners(){
     document.querySelector("#chebyshev").addEventListener("change", function(){
         if (this.checked) {
             distanceMetric = "chebyshev";
+            graph.metric=distanceMetric
             console.log("Distance Metric changed to:", distanceMetric);
         }
     });

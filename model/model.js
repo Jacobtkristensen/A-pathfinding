@@ -80,9 +80,9 @@ export class GridGraph {
     }
 
     addEdgesForNode(x, y) {
-        if(!this.metric){
-            this.metric='taxicab';
-        }
+        // if(!this.metric){
+        //     this.metric='taxicab';
+        // }
         let neighbors=[]
         
         const taxicabNeighbors = [
@@ -122,9 +122,9 @@ export class GridGraph {
     }
 
     heuristic(node, goal) {
-        if(!this.metric){
-            this.metric='taxicab';
-        }
+        // if(!this.metric){
+        //     this.metric='taxicab';
+        // }
         const [x1, y1] = node.split(',').map(Number);
         const [x2, y2] = goal.split(',').map(Number);
         const taxicabdist=Math.abs(x1 - x2) + Math.abs(y1 - y2);
@@ -166,10 +166,17 @@ export class GridGraph {
             }
             
             const neighbors = this.getNeighbors(current);
-            this.view.highlightNeighbors(current, neighbors);
+            
+               this.view.highlightNeighbors(current, neighbors);
+            
+           
 
             for (let neighbor of this.getNeighbors(current)) { // TODO: visualize neighbors
-                let tentative_gScore = gScore.get(current) + 1; // Equal weights
+            // setTimeout(500,()=>{
+            //     this.view.highlightNeighbors(current, neighbors);
+            // });
+            console.log("current node: ",current);
+               let tentative_gScore = gScore.get(current) + 1; // Equal weights
 
                 if (tentative_gScore < gScore.get(neighbor)) {
                     cameFrom.set(neighbor, current);
@@ -192,6 +199,7 @@ export class GridGraph {
             current = cameFrom.get(current);
             totalPath.unshift(current);
         }
+        this.view.visualizePath(totalPath);
         return totalPath;
     }
 }

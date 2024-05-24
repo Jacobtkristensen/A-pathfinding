@@ -53,3 +53,6 @@ body {
 .goal{
   background-color: lightcoral;
 }
+.cell.path{
+  background-color: red;
+}

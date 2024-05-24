@@ -66,7 +66,7 @@ export class GridSearchView {
         neighbors.forEach(neighbor => {
             const [row, col] = neighbor.split(',').map(Number);
             const cell = this.boardElement.querySelector(`.cell[data-row='${row}'][data-col='${col}']`);
-            if (cell && (!cell.classList.contains('start')||!cell.classList.contains('goal'))) {
+            if (cell && !cell.classList.contains('start') && !cell.classList.contains('goal')) {
                 
                 cell.classList.add('neighbor');
                
@@ -80,4 +80,41 @@ export class GridSearchView {
             cell.classList.remove('neighbor');
         });
     }
+    visualizePath(path){
+        path.forEach(step=>{
+            const [row, col] = step.split(',').map(Number);
+            const cell = this.boardElement.querySelector(`.cell[data-row='${row}'][data-col='${col}']`);
+            if(cell && !cell.classList.contains('start') && !cell.classList.contains('goal')){
+                cell.classList.add('path');
+            }
+        
+        })
+    }
+    //  lånt fra Matthias - tjek og refactor
+    //visualizePath(nodes, cols, optimal){
+    //     let remainingNodes = nodes;
+    //     remainingNodes.reverse();
+    //     const cells = document.getElementById("board").getElementsByClassName("cell");
+    //     function processNextNode() {
+    //         if (remainingNodes.length !== 0) {
+    //             const currentNode = remainingNodes.pop();
+    //             const row = currentNode.row;
+    //             const col = currentNode.col;
+    //             const index = row * cols + col;
+    //             const cell = cells[index];
+    //             if(cell.classList.contains('start')) {
+    //                 cell.classList.remove('start');
+    //             }
+    //             if(cell.classList.contains('goal')) {
+    //                 cell.classList.remove('goal');
+    //             }
+    //             cell.classList.add('visited');
+    
+    //             setTimeout(processNextNode, 300);
+    //         } else {
+    //             showOptimalPath(cols, optimal);
+    //         }
+    //     }
+    //     processNextNode();
+    // }
 }
