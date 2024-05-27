@@ -62,14 +62,11 @@ export class GridSearchView {
     }
     
     highlightNeighbors(current, neighbors) {
-       // this.clearHighlights();
         neighbors.forEach(neighbor => {
             const [row, col] = neighbor.split(',').map(Number);
             const cell = this.boardElement.querySelector(`.cell[data-row='${row}'][data-col='${col}']`);
             if (cell && !cell.classList.contains('start') && !cell.classList.contains('goal')) {
-                
                 cell.classList.add('neighbor');
-               
             }
         });
     }
@@ -90,6 +87,17 @@ export class GridSearchView {
         
         })
     }
+    visualizeFinalPath(path) {
+        path.forEach(step => {
+            const [row, col] = step.split(',').map(Number);
+            const cell = this.boardElement.querySelector(`.cell[data-row='${row}'][data-col='${col}']`);
+            if (cell && !cell.classList.contains('start') && !cell.classList.contains('goal')) {
+                cell.classList.add('final-path');
+            }
+        });
+    }
+    
+    
     //  lånt fra Matthias - tjek og refactor
     //visualizePath(nodes, cols, optimal){
     //     let remainingNodes = nodes;

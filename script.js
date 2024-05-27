@@ -2,7 +2,8 @@
 import { GridGraph } from "./model/model.js";
 import { GridSearchView } from "./view/view.js";
 
-let distanceMetric;
+let searchState;
+let distanceMetric = "taxicab";
 let startcell;
 let goalcell;
 let graph= new GridGraph(40,25,distanceMetric); 
@@ -13,12 +14,12 @@ graph.view = view;
 window.addEventListener("load", load);
 function load() {
     console.log("Ready.");
+    setupEventlisteners();
     graph= new GridGraph(40,25,distanceMetric); 
     const view = new GridSearchView(graph);
     graph.view = view;
     
     view.makeBoardClickable();
-    setupEventlisteners();
     
     console.log("Graph initialized.");
 
@@ -42,12 +43,18 @@ function start(){
         return;
     }
 
-    const path = graph.aStar(start, goal);
-    console.log("Path: ", path);
+    // const path = graph.aStar(start, goal);
+    // console.log("Path: ", path);
 
+    // graph.startAStar(start, goal);
+    // searchState = { done: false };
+    // loop();
+    graph.startAStar(start, goal);
+    searchState = { done: false };
+    loop();
 
-    // // start the search
-    // graph.aStar(start,goal);
+    // start the search
+    graph.aStar(start,goal);
 
 }
 
@@ -67,59 +74,93 @@ function start(){
  * notes: taxicab-dist=sqrt(2)*Euclid-dist (x2-x1+y2-y1), eucliddist=sqrt((x2-x1)^2+(y2-y1)^2), Chebyshev dist=max(x2-x1, y2-y1)
  * 
  */
-function loop(){ // just a placeholder for now
-    if(currentcell===goalcell){
-        console.log("Found the goal")
-        return
-    }
-    setTimeout(loop(),500)
-    // get next searchlayer
-    // update visuals
-    // update the tree
-}
-function setupEventlisteners(){
 
+function loop() {
+    if (searchState.done) {
+        console.log("Path found or no path exists.");
+        if (searchState.path.length > 0) {
+            view.visualizeFinalPath(searchState.path); // Highlight the final path in green
+        }
+        return;
+    }
+
+    searchState = graph.stepAStar();
+
+    if (!searchState.done) {
+        view.highlightNeighbors(searchState.current, searchState.neighbors); // Highlight neighbors in blue
+        setTimeout(loop, 500); // Adjust the delay as needed for visualization speed
+    } else {
+        view.visualizeFinalPath(searchState.path); // Highlight the final path in green
+        console.log("Final path: ", searchState.path);
+    }
+}
+
+// function loop() {
+//     if (searchState.done) {
+//         console.log("Path found or no path exists.");
+//         return;
+//     }
+
+//     searchState = graph.stepAStar();
+
+//     if (!searchState.done) {
+//         view.highlightNeighbors(searchState.current, searchState.neighbors);
+//         view.visualizePath([...graph.cameFrom.keys()]); // Show the path being built
+//         setTimeout(loop, 20); // Adjust the delay as needed for visualization speed
+//     } else {
+//         view.visualizePath(searchState.path);
+//         console.log("Final path: ", searchState.path);
+//     }
+// }
+
+// function loop(){ // just a placeholder for now
+//     if(currentcell===goalcell){
+//         console.log("Found the goal")
+//         return
+//     }
+//     setTimeout(loop(),500)
+//     // get next searchlayer
+//     // update visuals
+//     // update the tree
+// }
+function setupEventlisteners() {
     document.getElementById("start-btn").addEventListener("click", start);
 
-    document.querySelector("#taxicab").addEventListener("change", function(){
+    document.querySelector("#taxicab").addEventListener("change", function () {
         if (this.checked) {
             distanceMetric = "taxicab";
-            graph.metric=distanceMetric
+            graph.metric = distanceMetric;
             console.log("Distance Metric changed to:", distanceMetric);
         }
     });
-    
-    document.querySelector("#chebyshev").addEventListener("change", function(){
+
+    document.querySelector("#chebyshev").addEventListener("change", function () {
         if (this.checked) {
             distanceMetric = "chebyshev";
-            graph.metric=distanceMetric
+            graph.metric = distanceMetric;
             console.log("Distance Metric changed to:", distanceMetric);
         }
     });
-    // document.getElementById("alterGrid").addEventListener("click", function(){
-    //     alterGrid();
-    // });
-    document.querySelector("#start-cell").addEventListener("change", function() {
-       const cells=document.querySelectorAll(".cell");
-        cells.forEach(cell=>cell.classList.remove("start"));
+
+    document.querySelector("#start-cell").addEventListener("change", function () {
+        const cells = document.querySelectorAll(".cell");
+        cells.forEach(cell => cell.classList.remove("start"));
         startcell = document.querySelector("#start-cell").value;
-        const [row, col] =startcell.split(',').map(Number);
-        const visualstartcell=document.querySelector(`.cell[data-row='${row}'][data-col='${col}']`);
+        const [row, col] = startcell.split(',').map(Number);
+        const visualstartcell = document.querySelector(`.cell[data-row='${row}'][data-col='${col}']`);
         visualstartcell.classList.add("start");
         console.log("Start cell changed to:", startcell);
     });
 
-    document.querySelector("#goal-cell").addEventListener("change", function() {
-       const cells=document.querySelectorAll(".cell");
-        cells.forEach(cell=>cell.classList.remove("goal"));
+    document.querySelector("#goal-cell").addEventListener("change", function () {
+        const cells = document.querySelectorAll(".cell");
+        cells.forEach(cell => cell.classList.remove("goal"));
         goalcell = document.querySelector("#goal-cell").value;
-        const [row, col] =goalcell.split(',').map(Number);
-        const visualgoalcell=document.querySelector(`.cell[data-row='${row}'][data-col='${col}']`);
+        const [row, col] = goalcell.split(',').map(Number);
+        const visualgoalcell = document.querySelector(`.cell[data-row='${row}'][data-col='${col}']`);
         visualgoalcell.classList.add("goal");
         console.log("Goal cell changed to:", goalcell);
     });
-    
-
 }
 function setObstacles(cell){
     // set the cell to be an obstacle by calling the setObstacle(x,y) method of the model. I guess the cell will need to have x & y values added or derived from grid....

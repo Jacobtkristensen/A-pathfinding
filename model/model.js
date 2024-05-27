@@ -202,7 +202,62 @@ export class GridGraph {
         this.view.visualizePath(totalPath);
         return totalPath;
     }
+    //STEP-BASED A* ALGORITHM
+    startAStar(start, goal) {
+        this.openSet = new PriorityQueue();
+        this.openSet.enqueue(start, 0); // Use correct priority
+        this.cameFrom = new Map();
+    
+        this.gScore = new Map();
+        this.fScore = new Map();
+    
+        // Initialize gScore and fScore for all nodes
+        this.nodes.forEach((_, node) => {
+            this.gScore.set(node, Infinity);
+            this.fScore.set(node, Infinity);
+        });
+    
+        this.gScore.set(start, 0);
+        this.fScore.set(start, this.heuristic(start, goal));
+    
+        this.current = null;
+        this.goal = goal;
+    }
+
+    stepAStar() {
+        if (this.openSet.isEmpty()) {
+            return { done: true, path: [] }; // No path found
+        }
+    
+        this.current = this.openSet.dequeue();
+    
+        if (this.current === this.goal) {
+            const path = this.reconstructPath(this.cameFrom, this.current);
+            return { done: true, path };
+        }
+    
+        const neighbors = this.getNeighbors(this.current);
+    
+        for (let neighbor of neighbors) {
+            let tentative_gScore = this.gScore.get(this.current) + 1; // Equal weights
+    
+            if (tentative_gScore < this.gScore.get(neighbor)) {
+                this.cameFrom.set(neighbor, this.current);
+                this.gScore.set(neighbor, tentative_gScore);
+                this.fScore.set(neighbor, tentative_gScore + this.heuristic(neighbor, this.goal));
+    
+                if (!this.openSet.contains(neighbor)) {
+                    this.openSet.enqueue(neighbor, this.fScore.get(neighbor)); // Use correct priority
+                }
+            }
+        }
+    
+        return { done: false, current: this.current, neighbors };
+    }
+    
 }
+
+
 
 // class Graph {
 //     constructor() {

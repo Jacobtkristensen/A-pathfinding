@@ -56,3 +56,6 @@ body {
 .cell.path{
   background-color: red;
 }
+.cell.final-path {
+  background-color: green;
+}
