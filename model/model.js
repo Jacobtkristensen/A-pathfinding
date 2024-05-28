@@ -23,7 +23,7 @@
 
 
 export class GridGraph {
-    constructor(width, height,metric, view) {
+    constructor(width, height,metric="taxicab", view) {
         this.width = width;
         this.height = height;
         this.nodes = new Map();
@@ -31,7 +31,7 @@ export class GridGraph {
         this.view = view;
 
         this.createGrid();
-        this.createEdges(metric);
+        this.createEdges();
     }
     getWidth(){
         return this.width;
@@ -49,12 +49,14 @@ export class GridGraph {
         }
     }
     createEdges(){
+        
         for (let y = 0; y < this.height; y++) {
             for (let x = 0; x < this.width; x++) {
                 // const node = `${x},${y}`;
                 this.addEdgesForNode(x, y);
             }
         }
+   
     }
     addNode(node) {
         if(!this.nodes.has(node)){
@@ -71,8 +73,10 @@ export class GridGraph {
 
     addEdge(node1, node2) {
         if(this.nodes.has(node1) && this.nodes.has(node2)){
-            this.nodes.get(node1).neighbors.push(node2);
-            this.nodes.get(node2).neighbors.push(node1); // For undirected graph
+            if (this.nodes.get(node1).accessible && this.nodes.get(node2).accessible) {
+                this.nodes.get(node1).neighbors.push(node2);
+                this.nodes.get(node2).neighbors.push(node1); // For undirected graph
+            }
 
         }else{
             console.log(`Attempted to add edge between non-existent nodes: ${node1} - ${node2}`)
@@ -80,31 +84,31 @@ export class GridGraph {
     }
 
     addEdgesForNode(x, y) {
-        // if(!this.metric){
-        //     this.metric='taxicab';
-        // }
-        let neighbors=[]
-        
+       
+        let neighbors=[];
+        console.log("addEdges, metric: ",this.metric)
         const taxicabNeighbors = [
             [x - 1, y], // left
             [x + 1, y], // right
             [x, y - 1], // up
             [x, y + 1]  // down
         ];
-        const chebysevNeighbors=[
+        const chebyshevNeighbors=[
             [x - 1, y], // left
             [x + 1, y], // right
             [x, y - 1], // up
             [x, y + 1],  // down
-            [x-1,y-1], //up left
-            [x-1,y+1], //down left
-            [x+1,y-1], //up right
-            [x+1,y+1]  //down right
+            [x - 1,y - 1], //up left
+            [x - 1,y + 1], //down left
+            [x + 1,y - 1], //up right
+            [x + 1,y + 1]  //down right
         ];
         if(this.metric==='taxicab'){
             neighbors=taxicabNeighbors;
+        }else if(this.metric==='chebyshev'){
+            neighbors=chebyshevNeighbors;
         }else{
-            neighbors=chebysevNeighbors;
+            throw new Error("unknown metric");
         }
             
       
@@ -127,15 +131,21 @@ export class GridGraph {
         // }
         const [x1, y1] = node.split(',').map(Number);
         const [x2, y2] = goal.split(',').map(Number);
-        const taxicabdist=Math.abs(x1 - x2) + Math.abs(y1 - y2);
-        const chebysevdist=Math.max(Math.abs(x1-x2),Math.abs(y1-y2));
-        
+        // let taxicabdist=Math.abs(x1 - x2) + Math.abs(y1 - y2);
+    //    let chebyshevdist=Math.max(Math.abs(x1-x2),Math.abs(y1-y2));
+        // let returndist;
         if(this.metric==="taxicab"){
-            return taxicabdist;
+            return Math.abs(x1 - x2) + Math.abs(y1 - y2);
         }
-        else if(this.metric==="chebysev"){
-            return chebysevdist;
+        else if(this.metric==="chebyshev"){
+            return Math.max(Math.abs(x1-x2),Math.abs(y1-y2));
+        }else{
+            throw new Error("unknown metric");
         }
+        // returndist= this.metric==="chebyshev" ? chebyshevdist : taxicabdist;
+        // console.log("chebyshev? ",this.metric==="chebyshev")
+        // console.log("dist: ", returndist)
+        // return returndist;
     }
 
      aStar(start, goal) {
