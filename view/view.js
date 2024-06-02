@@ -39,9 +39,9 @@ export class GridSearchView {
             const cell = event.target;
             const row = parseInt(cell.dataset.row);
             const col = parseInt(cell.dataset.col);
-            this.model.setObstacle(row, col);
+           
             cell.classList.add("inaccessible");
-            //this.updateView();
+           
         }
     }
     

@@ -39,7 +39,7 @@ console.log("blocked: ", blockedcells);
     graph.metric = distanceMetric;
    
     blockedcells.forEach(cell=>{
-        console.log("cell: ",cell);
+       
         const [row, col] = cell;
         graph.setObstacle(row,col)})
  
