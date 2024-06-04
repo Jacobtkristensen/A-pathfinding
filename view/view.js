@@ -46,6 +46,7 @@ export class GridSearchView {
     }
     
     highlightNeighbors(current, neighbors) {
+        // this.clearHighlights();
         neighbors.forEach(neighbor => {
             const [row, col] = neighbor.split(',').map(Number);
             const cell = this.boardElement.querySelector(`.cell[data-row='${row}'][data-col='${col}']`);
@@ -58,7 +59,8 @@ export class GridSearchView {
     clearHighlights() {
         const cells = this.boardElement.querySelectorAll('.cell.neighbor');
         cells.forEach(cell => {
-            cell.classList.remove('neighbor');
+            // cell.classList.remove('neighbor');
+            cell.classList.add('visited');
         });
     }
     visualizePath(path){

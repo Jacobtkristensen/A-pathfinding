@@ -6,7 +6,7 @@ let searchState;
 let distanceMetric = "taxicab"; // Default metric
 let startcell;
 let goalcell;
-let graph = new GridGraph(40, 25, distanceMetric); 
+let graph = new GridGraph(25, 25, distanceMetric); 
 const view = new GridSearchView(graph);
 graph.view = view;
 let obstacles=[];
@@ -19,7 +19,7 @@ function load() {
 }
 
 function initializeGraph() {
-    graph = new GridGraph(40, 25, distanceMetric); 
+    graph = new GridGraph(25, 25, distanceMetric); 
     graph.view = view;
     view.makeBoardClickable();
     console.log("Graph initialized.");
@@ -60,6 +60,7 @@ function setobstaclesfromview(){
  return obstacles;
 }
 function loop() {
+    
     if (searchState.done) {
         console.log("Path found or no path exists.");
         if (searchState.path.length > 0) {
@@ -71,8 +72,9 @@ function loop() {
     searchState = graph.stepAStar();
 
     if (!searchState.done) {
-        view.highlightNeighbors(searchState.current, searchState.neighbors); // Highlight neighbors in blue
-        setTimeout(loop, 70); // Adjust the delay as needed for visualization speed
+        view.clearHighlights();
+        view.highlightNeighbors(searchState.current, searchState.neighbors); // Highlight neighbors
+        setTimeout(loop, 100); // Adjust the delay as needed for visualization speed
     } else {
         view.visualizeFinalPath(searchState.path); // Highlight the final path in green
         console.log("Final path: ", searchState.path);

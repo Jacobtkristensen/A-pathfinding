@@ -45,9 +45,8 @@ body {
 .cell.neighbor {
   background-color: yellow;
 }
-.cell.alive {
-  background-color: green;
-}.start{
+
+.start{
   background-color: olivedrab;
 }
 .goal{
@@ -56,6 +55,9 @@ body {
 .cell.path{
   background-color: red;
 }
-.cell.final-path {
+.cell.neighbor.visited.final-path {
   background-color: green;
+}
+.cell.neighbor.visited{
+ background-color: lightyellow
 }
