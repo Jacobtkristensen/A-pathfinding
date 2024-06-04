@@ -198,7 +198,7 @@ export class GridGraph {
             current = cameFrom.get(current);
             totalPath.unshift(current);
         }
-        this.view.visualizePath(totalPath);
+        this.view.visualizeFinalPath(totalPath);
         return totalPath;
     }
     //STEP-BASED A* ALGORITHM
