@@ -41,19 +41,19 @@ body {
 }
 
 .cell.neighbor {
-  background-color: yellow;
+  background-color: #ffff00;
 }
 
 .start{
-  background-color: olivedrab;
+  background-color: #6b8e23;
 }
 .goal{
-  background-color: lightcoral;
+  background-color: #f08080;
 }
 
 .cell.neighbor.visited.final-path {
-  background-color: green;
+  background-color: #008000;
 }
 .cell.neighbor.visited{
- background-color: lightyellow
+ background-color: #ffffe0
 }
