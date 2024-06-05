@@ -63,16 +63,7 @@ export class GridSearchView {
             cell.classList.add('visited');
         });
     }
-    // visualizePath(path){
-    //     path.forEach(step=>{
-    //         const [row, col] = step.split(',').map(Number);
-    //         const cell = this.boardElement.querySelector(`.cell[data-row='${row}'][data-col='${col}']`);
-    //         if(cell && !cell.classList.contains('start') && !cell.classList.contains('goal') &&!cell.classList.contains("inaccessible")){
-    //             cell.classList.add('path');
-    //         }
-        
-    //     })
-    // }
+
     visualizeFinalPath(path) {
         path.forEach(step => {
             const [row, col] = step.split(',').map(Number);
@@ -81,8 +72,6 @@ export class GridSearchView {
                 cell.classList.add('final-path');
             }
         });
-    }
-
-    
+    } 
   
 }
