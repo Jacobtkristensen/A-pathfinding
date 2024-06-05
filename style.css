@@ -8,9 +8,7 @@ body {
 .buttons {
   padding-top: 20px;
 }
-#grid-container {
-  
-}
+
 #grid {
     display: grid;
     grid-gap: 0;
