@@ -22,6 +22,8 @@ function initializeGraph() {
     graph = new GridGraph(25, 25, distanceMetric); 
     graph.view = view;
     view.makeBoardClickable();
+    const initmessage="Graph initialized."
+    displayMessage(initmessage);
     console.log("Graph initialized.");
 }
 
@@ -63,9 +65,16 @@ function loop() {
     
     if (searchState.done) {
         console.log("Path found or no path exists.");
+        let message;
         if (searchState.path.length > 0) {
             view.visualizeFinalPath(searchState.path); // Highlight the final path in green
+            // view.visualizeresultmessage(searchState.path)
+            //  message+=`\nJSON.stringify(path)`
+        }else{
+            message+=`/nNo path found`;
         }
+        
+        displayMessage(message);
         return;
     }
 
@@ -77,10 +86,20 @@ function loop() {
         setTimeout(loop, 100); // Adjust the delay as needed for visualization speed
     } else {
         view.visualizeFinalPath(searchState.path); // Highlight the final path in green
+        let message;
+        searchState.path.length>0 ? message=`Path found: ${JSON.stringify(searchState.path)}` : message="No path found";
+       const finalpath=JSON.stringify(searchState.path)
         console.log("Final path: ", searchState.path);
+        displayMessage(message);
     }
 }
+function displayMessage(message){
+    const resultmessage = document.querySelector("#textarea");
+    let state=resultmessage.value;
+    resultmessage.textContent =`${state} \n${message}`;
+    return
 
+}
 function setupEventListeners() {
     document.getElementById("start-btn").addEventListener("click", start);
 
