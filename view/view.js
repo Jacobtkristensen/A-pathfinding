@@ -29,23 +29,7 @@ export class GridSearchView {
             }
         }
     }
-    // ### skal omskrives så den opdaterer celler/nodes tilføjes queue eller er del af path ###
 
-    // updateView() {
-    //     const cells = this.boardElement.querySelectorAll('.cell');
-    //     cells.forEach(cell => {
-    //         const row = parseInt(cell.dataset.row);
-    //         const col = parseInt(cell.dataset.col);
-    //         const cellState = this.model.getCell(row, col);
-    //         if (cellState) {
-    //             cell.classList.add('alive');
-    //         } else {
-    //             cell.classList.remove('alive');
-    //         }
-    //     });
-        
-    //     generations.value=`Generations: ${this.model.generations}`;
-    // }
     makeBoardClickable(){
         this.boardElement.addEventListener("click", this.boardClicked.bind(this));
     }
@@ -55,17 +39,18 @@ export class GridSearchView {
             const cell = event.target;
             const row = parseInt(cell.dataset.row);
             const col = parseInt(cell.dataset.col);
-            this.model.setObstacle(row, col);
+           
             cell.classList.add("inaccessible");
-            //this.updateView();
+           
         }
     }
     
     highlightNeighbors(current, neighbors) {
+        // this.clearHighlights();
         neighbors.forEach(neighbor => {
             const [row, col] = neighbor.split(',').map(Number);
             const cell = this.boardElement.querySelector(`.cell[data-row='${row}'][data-col='${col}']`);
-            if (cell && !cell.classList.contains('start') && !cell.classList.contains('goal')) {
+            if (cell && !cell.classList.contains('start') && !cell.classList.contains('goal') &&!cell.classList.contains("inaccessible")) {
                 cell.classList.add('neighbor');
             }
         });
@@ -74,55 +59,19 @@ export class GridSearchView {
     clearHighlights() {
         const cells = this.boardElement.querySelectorAll('.cell.neighbor');
         cells.forEach(cell => {
-            cell.classList.remove('neighbor');
+            // cell.classList.remove('neighbor');
+            cell.classList.add('visited');
         });
     }
-    visualizePath(path){
-        path.forEach(step=>{
-            const [row, col] = step.split(',').map(Number);
-            const cell = this.boardElement.querySelector(`.cell[data-row='${row}'][data-col='${col}']`);
-            if(cell && !cell.classList.contains('start') && !cell.classList.contains('goal')){
-                cell.classList.add('path');
-            }
-        
-        })
-    }
+
     visualizeFinalPath(path) {
         path.forEach(step => {
             const [row, col] = step.split(',').map(Number);
             const cell = this.boardElement.querySelector(`.cell[data-row='${row}'][data-col='${col}']`);
-            if (cell && !cell.classList.contains('start') && !cell.classList.contains('goal')) {
+            if (cell && !cell.classList.contains('start') && !cell.classList.contains('goal') &&!cell.classList.contains("inaccessible")) {
                 cell.classList.add('final-path');
             }
         });
-    }
-    
-    
-    //  lånt fra Matthias - tjek og refactor
-    //visualizePath(nodes, cols, optimal){
-    //     let remainingNodes = nodes;
-    //     remainingNodes.reverse();
-    //     const cells = document.getElementById("board").getElementsByClassName("cell");
-    //     function processNextNode() {
-    //         if (remainingNodes.length !== 0) {
-    //             const currentNode = remainingNodes.pop();
-    //             const row = currentNode.row;
-    //             const col = currentNode.col;
-    //             const index = row * cols + col;
-    //             const cell = cells[index];
-    //             if(cell.classList.contains('start')) {
-    //                 cell.classList.remove('start');
-    //             }
-    //             if(cell.classList.contains('goal')) {
-    //                 cell.classList.remove('goal');
-    //             }
-    //             cell.classList.add('visited');
-    
-    //             setTimeout(processNextNode, 300);
-    //         } else {
-    //             showOptimalPath(cols, optimal);
-    //         }
-    //     }
-    //     processNextNode();
-    // }
+    } 
+  
 }
