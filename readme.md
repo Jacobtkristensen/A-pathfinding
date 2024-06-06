@@ -9,7 +9,7 @@ README.md må også indeholde informationer om de anvendte
 algoritmer og datastrukturer, og beskrivelser af hvordan man kan køre
 visualiseringen lokalt.
 # DSA: en interaktiv, visuel implementering af A*-algoritmen
-![placeholder, insert correct screenshot](placeholder.png)
+![placeholder, insert correct screenshot](ss.png)
 
 ## udarbejdet af:
 Morten Gislund og Jacob Tobias Kristensen
