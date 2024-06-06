@@ -6,6 +6,7 @@ let searchState;
 let distanceMetric = "taxicab"; // Default metric
 let startcell;
 let goalcell;
+let delay = 75; // Default loop delay
 let graph = new GridGraph(25, 25, distanceMetric); 
 const view = new GridSearchView(graph);
 graph.view = view;
@@ -61,19 +62,17 @@ function setobstaclesfromview(){
     });
  return obstacles;
 }
+
 function loop() {
-    
     if (searchState.done) {
         console.log("Path found or no path exists.");
         let message;
         if (searchState.path.length > 0) {
             view.visualizeFinalPath(searchState.path); // Highlight the final path in green
-            // view.visualizeresultmessage(searchState.path)
-            //  message+=`\nJSON.stringify(path)`
-        }else{
-            message+=`/nNo path found`;
+        } else {
+            message += `/nNo path found`;
         }
-        
+
         displayMessage(message);
         return;
     }
@@ -83,12 +82,12 @@ function loop() {
     if (!searchState.done) {
         view.clearHighlights();
         view.highlightNeighbors(searchState.current, searchState.neighbors); // Highlight neighbors
-        setTimeout(loop, 100); // Adjust the delay as needed for visualization speed
+        setTimeout(loop, delay); // Use the delay from the slider
     } else {
         view.visualizeFinalPath(searchState.path); // Highlight the final path in green
         let message;
-        searchState.path.length>0 ? message=`Path found: ${JSON.stringify(searchState.path)}` : message="No path found";
-       const finalpath=JSON.stringify(searchState.path)
+        searchState.path.length > 0 ? message = `Path found: ${JSON.stringify(searchState.path)}` : message = "No path found";
+        const finalpath = JSON.stringify(searchState.path)
         console.log("Final path: ", searchState.path);
         displayMessage(message);
     }
@@ -102,6 +101,14 @@ function displayMessage(message){
 }
 function setupEventListeners() {
     document.getElementById("start-btn").addEventListener("click", start);
+    document.getElementById("reset-btn").addEventListener("click", function() {
+        window.location.reload();
+    });
+
+    document.getElementById('speed-slider').addEventListener('change', function() {
+        delay = parseInt(this.value);
+        displayMessage(`Speed changed to ${delay} ms`);
+    });
 
     document.querySelector("#taxicab").addEventListener("change", function () {
         if (this.checked) {
