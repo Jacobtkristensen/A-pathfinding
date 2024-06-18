@@ -1,23 +1,103 @@
+class MinHeap {
+    constructor() {
+      this.heap = [];
+    }
+  
+    getParentIndex(index) {
+      return Math.floor((index - 1) / 2);
+    }
+  
+    getLeftChildIndex(index) {
+      return 2 * index + 1;
+    }
+  
+    getRightChildIndex(index) {
+      return 2 * index + 2;
+    }
+  
+    swap(index1, index2) {
+      [this.heap[index1], this.heap[index2]] = [this.heap[index2], this.heap[index1]];
+    }
+  
+    insert(value) {
+      this.heap.push(value);
+      this.heapifyUp();
+    }
+  
+    heapifyUp() {
+      let index = this.heap.length - 1;
+      while (this.getParentIndex(index) >= 0 && this.heap[this.getParentIndex(index)] > this.heap[index]) {
+        this.swap(this.getParentIndex(index), index);
+        index = this.getParentIndex(index);
+      }
+    }
+  
+    extractMin() {
+      if (this.heap.length === 0) {
+        return null;
+      }
+      if (this.heap.length === 1) {
+        return this.heap.pop();
+      }
+      const root = this.heap[0];
+      this.heap[0] = this.heap.pop();
+      this.heapifyDown(0);
+      return root;
+    }
+  
+    heapifyDown(index) {
+      let smallest = index;
+      const leftChildIndex = this.getLeftChildIndex(index);
+      const rightChildIndex = this.getRightChildIndex(index);
+  
+      if (leftChildIndex < this.heap.length && this.heap[leftChildIndex] < this.heap[smallest]) {
+        smallest = leftChildIndex;
+      }
+  
+      if (rightChildIndex < this.heap.length && this.heap[rightChildIndex] < this.heap[smallest]) {
+        smallest = rightChildIndex;
+      }
+  
+      if (smallest !== index) {
+        this.swap(index, smallest);
+        this.heapifyDown(smallest);
+      }
+    }
+  
+    isEmpty() {
+      return this.heap.length === 0;
+    }
+  }
+ 
  class PriorityQueue {
     constructor() {
-        this.elements = [];
+        this.minHeap=new MinHeap();
     }
 
-    isEmpty() {
-        return this.elements.length === 0;
+    // isEmpty() {
+    //     return this.elements.length === 0;
+    // }
+
+    // enqueue(element, priority) {
+    //     this.elements.push({ element, priority });
+    //     this.elements.sort((a, b) => a.priority - b.priority);
+    // }
+    enqueue(element, priority){
+        this.minHeap.insert({element, priority});
     }
 
-    enqueue(element, priority) {
-        this.elements.push({ element, priority });
-        this.elements.sort((a, b) => a.priority - b.priority);
+    // dequeue() {
+    //     return this.elements.shift().element;
+    // }
+    dequeue(){
+        return this.minHeap.extractMin().element;
     }
-
-    dequeue() {
-        return this.elements.shift().element;
+    isEmpty(){
+        return this.minHeap.isEmpty();
     }
 
     contains(element) {
-        return this.elements.some(e => e.element === element);
+        return this.minHeap.some(e => e.element === element);
     }
 }
 
