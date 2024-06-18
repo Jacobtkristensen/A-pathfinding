@@ -69,37 +69,51 @@ class MinHeap {
     }
   }
  
- class PriorityQueue {
+//  class PriorityQueue {
+//     constructor() {
+//         this.elements = [];
+//     }
+
+//     isEmpty() {
+//         return this.elements.length === 0;
+//     }
+
+//     enqueue(element, priority) {
+//         this.elements.push({ element, priority });
+//         this.elements.sort((a, b) => a.priority - b.priority);
+//     }
+
+//     dequeue() {
+//         return this.elements.shift().element;
+//     }
+
+//     contains(element) {
+//         return this.elements.some(e => e.element === element);
+//     }
+// }
+
+class PriorityQueue {
     constructor() {
-        this.minHeap=new MinHeap();
+      this.minHeap = new MinHeap();
     }
-
-    // isEmpty() {
-    //     return this.elements.length === 0;
-    // }
-
-    // enqueue(element, priority) {
-    //     this.elements.push({ element, priority });
-    //     this.elements.sort((a, b) => a.priority - b.priority);
-    // }
-    enqueue(element, priority){
-        this.minHeap.insert({element, priority});
+  
+    isEmpty() {
+      return this.minHeap.isEmpty();
     }
-
-    // dequeue() {
-    //     return this.elements.shift().element;
-    // }
-    dequeue(){
-        return this.minHeap.extractMin().element;
+  
+    enqueue(element, priority) {
+      this.minHeap.insert({ element, priority });
     }
-    isEmpty(){
-        return this.minHeap.isEmpty();
+  
+    dequeue() {
+      const minElement = this.minHeap.extractMin();
+      return minElement ? minElement.element : null;
     }
-
+  
     contains(element) {
-        return this.minHeap.some(e => e.element === element);
+      return this.minHeap.heap.some(e => e.element === element);
     }
-}
+  }
 
 
 export class GridGraph {
