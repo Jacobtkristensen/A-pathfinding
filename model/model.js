@@ -26,7 +26,7 @@ class MinHeap {
   
     heapifyUp() {
       let index = this.heap.length - 1;
-      while (this.getParentIndex(index) >= 0 && this.heap[this.getParentIndex(index)] > this.heap[index]) {
+      while (this.getParentIndex(index) >= 0 && this.heap[this.getParentIndex(index)].priority > this.heap[index].priority) {
         this.swap(this.getParentIndex(index), index);
         index = this.getParentIndex(index);
       }
@@ -50,11 +50,11 @@ class MinHeap {
       const leftChildIndex = this.getLeftChildIndex(index);
       const rightChildIndex = this.getRightChildIndex(index);
   
-      if (leftChildIndex < this.heap.length && this.heap[leftChildIndex] < this.heap[smallest]) {
+      if (leftChildIndex < this.heap.length && this.heap[leftChildIndex].priority < this.heap[smallest].priority) {
         smallest = leftChildIndex;
       }
   
-      if (rightChildIndex < this.heap.length && this.heap[rightChildIndex] < this.heap[smallest]) {
+      if (rightChildIndex < this.heap.length && this.heap[rightChildIndex].priority < this.heap[smallest].priority) {
         smallest = rightChildIndex;
       }
   
@@ -68,6 +68,7 @@ class MinHeap {
       return this.heap.length === 0;
     }
   }
+  
  
 //  class PriorityQueue {
 //     constructor() {
