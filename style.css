@@ -8,23 +8,21 @@ body {
 .buttons {
   padding-top: 20px;
 }
-#grid-container {
-  
-}
+
 #grid {
     display: grid;
     grid-gap: 0;
     row-gap: 0;
-  width: 100%;
-  height: 50%;
+  width: 65%;
+  height: 60%;
+  margin: auto;
+}
+.text-area-container {
 }
 .textarea {
-  height: 100%;
+  height: 50%;
 }
-.textarea-scrollable {
-  display: flex;
-  align-items: center;
-}
+
 
 .buttons2 {
   height: 50px; /* Adjust as needed */
@@ -43,19 +41,19 @@ body {
 }
 
 .cell.neighbor {
-  background-color: yellow;
+  background-color: #ffff00;
 }
-.cell.alive {
-  background-color: green;
-}.start{
-  background-color: olivedrab;
+
+.start{
+  background-color: #6b8e23;
 }
 .goal{
-  background-color: lightcoral;
+  background-color: #f08080;
 }
-.cell.path{
-  background-color: red;
+
+.cell.neighbor.visited.final-path {
+  background-color: #008000;
 }
-.cell.final-path {
-  background-color: green;
+.cell.neighbor.visited{
+ background-color: #ffffe0
 }
