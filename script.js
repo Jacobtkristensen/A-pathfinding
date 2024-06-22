@@ -86,7 +86,7 @@ function loop() {
     } else {
         view.visualizeFinalPath(searchState.path); // Highlight the final path in green
         let message;
-        searchState.path.length > 0 ? message = `Path found: ${JSON.stringify(searchState.path)}` : message = "No path found";
+        searchState.path.length > 0 ? message = `Path found: ${searchState.path.length} steps in all ${JSON.stringify(searchState.path)}` : message = "No path found";
         const finalpath = JSON.stringify(searchState.path)
         console.log("Final path: ", searchState.path);
         displayMessage(message);
